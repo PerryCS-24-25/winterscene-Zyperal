@@ -12,10 +12,9 @@ public class Picture
 {
     // Private member (instance) variables
     private Canvas pic;
-    private Circle ball; // The sample ball to animate
-    private int dx = 5; // Speed in x direction for the sample ball
-    private int dy = -5; // Speed in y direction for the sample ball
-    
+    private Circle[] snow = new Circle[100]; // Allocate space for 100 Circles
+    private Rect ground;
+
     public Picture()
     {
         // Get a reference to the canvas for this drawing and set its title.
@@ -26,9 +25,6 @@ public class Picture
         // Turn off automatic redrawing
         pic.pause(true);
         
-        ball = new Circle();
-        ball.makeVisible();
-        
         // Show the initial picture
         pic.redraw();
     }
@@ -38,37 +34,15 @@ public class Picture
      */
     public void update() 
     {
-        int x = ball.getX();
-        int y = ball.getY();
-        
-        // Calculate a new position for the ball
-        x = x + dx;
-        y = y + dy;        
-        
-        // Bounce off the edges
-        if (x < 0) {
-            x = 0;
-            dx = -dx;
-        }
-        else if (x + ball.getDiameter() > pic.getWidth()) {
-            dx = -dx;
-            x = pic.getWidth() - ball.getDiameter();
-        }
-        
-        if (y < 0) {
-            y = 0;
-            dy = -dy;
-        }        
-        else if (y + ball.getDiameter() > pic.getHeight()) {
-            y = pic.getHeight() - ball.getDiameter();
-            dy = -dy;
-        }
-        
-        // Move the ball
-        ball.setPosition(x, y);
-        
         // Update the screen
         pic.redraw();
+
+        //animates the flakes :)
+        for (int i = 0; i < snow.length; i++) {
+            snow[i] = new Circle(0, 0, 2, "white", true); // create flakes - small circles
+        }
+
+        new Rect(0, 700, width, height, color, visible)
     }
     
     /**
